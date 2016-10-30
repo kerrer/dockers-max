@@ -1,0 +1,136 @@
+busybox:
+  image: busybox
+  volumes: 
+    - ./data/mysql:/var/lib/mysql
+    
+mysql:
+  image: mysql
+  container_name: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: mmmm
+  volumes_from:
+    - busybox
+
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: myadmin
+    links:
+     - mysql:db
+    environment:
+     - PMA_ARBITRARY=1
+     - PMA_HOST=db
+    restart: always
+    ports:
+     - "8080:80"
+
+cittai:
+  image: nginx-php
+  container_name: cittai
+  links:
+    - mysql:db
+  volumes:
+    - ./www/cittai:/var/www/html
+  ports:
+    - "80:80"
+
+makutai:
+  image: nginx-php
+  container_name: makutai
+  links:
+    - mysql:db
+  volumes:
+    - ./www/makutai:/var/www/html
+  ports:
+    - "81:80"
+
+daifei:
+  image: nginx-php
+  container_name: daifei
+  links:
+    - mysql:db
+  volumes:
+    - ./www/daifei:/var/www/html
+  ports:
+    - "86:80"
+       
+mess:
+  image: nginx-php
+  container_name: mess
+  links:
+    - mysql:db
+  volumes:
+    - ./www/mess:/var/www/html
+  ports:
+    - "82:80"
+    
+wedgod:
+  image: nginx-php
+  container_name: wedgod
+  links:
+    - mysql:db
+  volumes:
+    - ./www/wedgod:/var/www/html
+  ports:
+    - "83:80"
+    
+xraymove:
+  image: nginx-php
+  container_name: xraymove
+  links:
+    - mysql:db
+  volumes:
+    - ./www/xraymove:/var/www/html
+  ports:
+    - "84:80"
+    
+yaka:
+  image: nginx-php
+  container_name: yaka
+  links:
+    - mysql:db
+  volumes:
+    - ./www/yaka:/var/www/html
+  ports:
+    - "85:80"        
+
+dingdan:
+  image: nginx-php
+  container_name: dingdan
+  links:
+    - mysql:db
+  volumes:
+    - ./www/dingdan:/var/www/html
+  ports:
+    - "88:80"
+
+wugu:
+  image: nginx-php
+  container_name: wugu
+  links:
+    - mysql:db
+  volumes:
+    - ./www/wugu:/var/www/html
+  ports:
+    - "89:80"
+    
+ciyou:
+  image: nginx-php
+  container_name: ciyou
+  links:
+    - mysql:db
+  volumes:
+    - ./www/ciyou:/var/www/html
+  ports:
+    - "90:80"
+ 
+zwz:
+  image: nginx-php
+  container_name: zwz
+  links:
+    - mysql:db
+  volumes:
+    - ./www/zwz:/var/www/html
+  ports:
+    - "91:80"

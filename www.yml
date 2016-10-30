@@ -1,0 +1,102 @@
+ttfc:
+  image: nginx-php
+  container_name: ttfc
+  links:
+    - mysql:db
+  volumes:
+    - ./www/ttfc:/var/www/html
+  ports:
+    - "80:80"
+
+makuto:
+  image: nginx-php
+  container_name: makuto
+  links:
+    - mysql:db
+  volumes:
+    - ./www/makuto:/var/www/html
+  ports:
+    - "81:80"
+
+        
+mess:
+  image: nginx-php
+  container_name: mess
+  links:
+    - mysql:db
+  volumes:
+    - ./www/mess:/var/www/html
+  ports:
+    - "82:80"
+    
+wedgod:
+  image: nginx-php
+  container_name: wedgod
+  links:
+    - mysql:db
+  volumes:
+    - ./www/wedgod:/var/www/html
+  ports:
+    - "83:80"
+    
+xraymove:
+  image: nginx-php
+  container_name: xraymove
+  links:
+    - mysql:db
+  volumes:
+    - ./www/xraymove:/var/www/html
+  ports:
+    - "84:80"
+    
+yaka:
+  image: nginx-php
+  container_name: yaka
+  links:
+    - mysql:db
+  volumes:
+    - ./www/yaka:/var/www/html
+  ports:
+    - "85:80"    
+
+daifu:
+  image: nginx-php
+  container_name: daifu
+  links:
+    - mysql:db
+  volumes:
+    - ./www/daifu:/var/www/html
+  ports:
+    - "86:80"
+    
+
+dingdan:
+  image: nginx-php
+  container_name: dingdan
+  links:
+    - mysql:db
+  volumes:
+    - ./www/dingdan:/var/www/html
+  ports:
+    - "88:80"
+
+wugu:
+  image: nginx-php
+  container_name: wugu
+  links:
+    - mysql:db
+  volumes:
+    - ./www/wugu:/var/www/html
+  ports:
+    - "89:80"
+    
+ciyou:
+  image: nginx-php
+  container_name: ciyou
+  links:
+    - mysql:db
+  volumes:
+    - ./www/ciyou:/var/www/html
+  ports:
+    - "90:80"
+ 

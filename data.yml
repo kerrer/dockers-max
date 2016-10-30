@@ -1,0 +1,54 @@
+busybox:
+  image: busybox
+  volumes: 
+    - ./data/mysql:/var/lib/mysql
+    - ./data/mariadb:/var/lib/mysql
+    - ./data/postgres:/postgres/data
+    
+busybox1:
+  image: busybox
+  volumes: 
+    - ./data/mariadb:/var/lib/mysql
+
+mysql:
+  image: mysql
+  container_name: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: mmmm
+  volumes_from:
+    - busybox
+    
+mariadb:
+  image: mariadb
+  container_name: mariadb
+  ports:
+    - "3307:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: mmmm
+  volumes_from:
+    - busybox1
+
+postgres:
+  image: postgres
+  container_name: postgres
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_PASSWORD: mmmm
+    PGDATA: /postgres/data
+  volumes_from:
+    - busybox
+    
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: myadmin
+    links:
+     - mysql:db
+    environment:
+     - PMA_ARBITRARY=1
+     - PMA_HOST=db
+    restart: always
+    ports:
+     - "8080:80"

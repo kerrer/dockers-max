@@ -1,0 +1,64 @@
+version: '2'
+
+services:
+
+  busybox:
+    image: busybox
+    volumes: 
+      - ./data/mysql:/var/lib/mysql
+    
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: mmmm
+    volumes_from:
+      - busybox
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: myadmin
+    links:
+     - mysql:db
+    environment:
+     - PMA_ARBITRARY=1
+     - PMA_HOST=db
+    restart: always
+    ports:
+     - "8080:80"
+
+  cittai:
+    image: wordpress
+    container_name: cittai
+    links:
+      - mysql:mysql
+    ports:
+      - "80:80"
+    environment:
+      WORDPRESS_DB_PASSWORD: mmmm
+      WORDPRESS_DB_NAME: cittai
+  
+  makutai:
+    image: wordpress
+    container_name: makutai
+    links:
+      - mysql:mysql
+    ports:
+      - "81:80"
+    environment:
+      WORDPRESS_DB_PASSWORD: mmmm
+      WORDPRESS_DB_NAME: makutai
+
+  daifei:
+    image: wordpress
+    container_name: daifei
+    links:
+      - mysql:mysql
+    ports:
+      - "86:80"
+    environment:
+      WORDPRESS_DB_PASSWORD: mmmm
+      WORDPRESS_DB_NAME: daifei
+

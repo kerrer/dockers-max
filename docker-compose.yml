@@ -1,0 +1,55 @@
+version: '2'
+
+services:
+
+  busybox:
+    image: busybox
+    volumes: 
+      - ./data/mysql:/var/lib/mysql
+    
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: mmmm
+    volumes_from:
+      - busybox
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: myadmin
+    links:
+     - mysql:db
+    environment:
+     - PMA_ARBITRARY=1
+     - PMA_HOST=db
+    restart: always
+    ports:
+     - "8080:80"
+
+  xraymove:
+    image: wordpress
+    container_name: xraymove
+    links:
+      - mysql:mysql
+    ports:
+      - "91:80"
+    environment:
+      WORDPRESS_DB_PASSWORD: mmmm
+      WORDPRESS_DB_NAME: xraymove
+      VIRTUAL_HOST: xray.max.com
+      
+  zwzwen:
+    image: wordpress
+    container_name: zwzwen
+    links:
+      - mysql:mysql
+    ports:
+      - "92:80"
+    environment:
+      WORDPRESS_DB_PASSWORD: mmmm
+      WORDPRESS_DB_NAME: zwzwen
+      VIRTUAL_HOST: zwz.max.com
+

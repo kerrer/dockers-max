@@ -1,0 +1,123 @@
+ttfc:
+  image: nginx-php
+  container_name: ttfc
+  links:
+    - mysql:db
+  volumes:
+    - ./www/ttfc:/usr/share/nginx/html
+  ports:
+    - "80:80"
+
+makuto:
+  image: nginx-php
+  container_name: makuto
+  links:
+    - mysql:db
+  volumes:
+    - ./www/makuto:/usr/share/nginx/html
+  ports:
+    - "81:80"
+
+        
+mess:
+  image: nginx-php
+  container_name: mess
+  links:
+    - mysql:db
+  volumes:
+    - ./www/mess:/usr/share/nginx/html
+  ports:
+    - "82:80"
+    
+wedgod:
+  image: nginx-php
+  container_name: wedgod
+  links:
+    - mysql:db
+  volumes:
+    - ./www/wedgod:/usr/share/nginx/html
+  ports:
+    - "83:80"
+    
+xraymove:
+  image: nginx-php
+  container_name: xraymove
+  links:
+    - mysql:db
+  volumes:
+    - ./www/xraymove:/usr/share/nginx/html
+  ports:
+    - "84:80"
+    
+yaka:
+  image: nginx-php
+  container_name: yaka
+  links:
+    - mysql:db
+  volumes:
+    - ./www/yaka:/usr/share/nginx/html
+  ports:
+    - "85:80"    
+
+daifu:
+  image: nginx-php
+  container_name: daifu
+  links:
+    - mysql:db
+  volumes:
+    - ./www/daifu:/var/www/html
+  ports:
+    - "86:80"
+    
+wugu:
+  image: nginx-php
+  container_name: wugu
+  links:
+    - mysql:db
+  volumes:
+    - ./www/wugu:/var/www/html
+  ports:
+    - "87:80"
+
+dingdan:
+  image: nginx-php
+  container_name: dingdan
+  links:
+    - mysql:db
+  volumes:
+    - ./www/dingdan:/var/www/html
+  ports:
+    - "88:80"
+    
+busybox:
+  image: busybox
+  volumes: 
+    - /work/mysql/data:/var/lib/mysql
+
+mysql:
+  image: mysql
+  container_name: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: mmmm
+  volumes_from:
+    - busybox
+    
+mariadb:
+  image: mariadb
+  container_name: mariadb
+  environment:
+    MYSQL_ROOT_PASSWORD: mmmm
+
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: myadmin
+    links:
+     - mysql:db
+    environment:
+     - PMA_ARBITRARY=1
+     - PMA_HOST=db
+    restart: always
+    ports:
+     - "8080:80"
